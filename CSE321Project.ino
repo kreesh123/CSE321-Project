@@ -60,6 +60,4 @@ void loop() {
   } else {
     digitalWrite(LED_PIN, LOW);
   }
-
-  delay(50);
 }
