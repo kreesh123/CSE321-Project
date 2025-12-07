@@ -1,12 +1,10 @@
-// ==== Efficient Automated Light Switch (Logic + LED) ====
-
 const int PIR_PIN = 2;
 const int BUTTON_PIN = 3;
 const int LED_PIN = 13;
 
 unsigned long motionTimer = 0;
-unsigned long lightDuration = 10000; // 10 seconds (use 1800000 for 30 min)
-unsigned long overrideDelay = 5000;  // 5 seconds override disable time
+unsigned long lightDuration = 10000; // 10 seconds
+unsigned long overrideDelay = 5000;  // 5 seconds
 
 bool lightState = false;
 bool overrideActive = false;
@@ -40,13 +38,11 @@ void loop() {
   } 
   lastButtonState = buttonState;
 
-  // --- Override timer ---
   if (overrideActive && (millis() - overrideStart > overrideDelay)) {
     overrideActive = false;
     Serial.println("Override ended, motion sensor reactivated");
   }
 
-  // --- Motion-based control ---
   if (!overrideActive) {
     if (motionDetected == HIGH) {
       lightState = true;
@@ -59,7 +55,6 @@ void loop() {
     }
   }
 
-  // --- Update LED to match light state ---
   if (lightState == true) {
     digitalWrite(LED_PIN, HIGH);
   } else {
