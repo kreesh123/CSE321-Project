@@ -1,19 +1,19 @@
-const int PIR_PIN = 2;
+const int SENSOR_PIN = 2;
 const int BUTTON_PIN = 3;
 const int LED_PIN = 13;
 
 unsigned long motionTimer = 0;
-unsigned long lightDuration = 10000; // 10 seconds
-unsigned long overrideDelay = 5000;  // 5 seconds
+unsigned long lightDuration = 10000; // 10 seconds for demo but usually 30 mins
+unsigned long overrideDelay = 5000;  // 5 seconds for demo but usally 1 min
 
 bool lightState = false;
 bool overrideActive = false;
 bool lastButtonState = HIGH;
 
-unsigned long overrideStart = 0;
+unsigned long overrideTime = 0;
 
 void setup() {
-  pinMode(PIR_PIN, INPUT);
+  pinMode(SENSOR_PIN, INPUT);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
 
@@ -28,7 +28,7 @@ void loop() {
   
   if (buttonState == LOW && lastButtonState == HIGH) {
     overrideActive = true;
-    overrideStart = millis();
+    overrideTime = millis();
     lightState = !lightState;
   if (lightState) {
       Serial.println("Manual ON");
@@ -38,7 +38,7 @@ void loop() {
   } 
   lastButtonState = buttonState;
 
-  if (overrideActive && (millis() - overrideStart > overrideDelay)) {
+  if (overrideActive && (millis() - overrideTime > overrideDelay)) {
     overrideActive = false;
     Serial.println("Override ended, motion sensor reactivated");
   }
