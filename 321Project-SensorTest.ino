@@ -1,5 +1,5 @@
 // === PIR Sensor Test ===
-const int PIR_PIN = 2;
+const int SENSOR_PIN = 2;
 
 void setup() {
   Serial.begin(9600);
