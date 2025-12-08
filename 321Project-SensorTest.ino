@@ -3,12 +3,11 @@ const int PIR_PIN = 2;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(PIR_PIN, INPUT);
-  Serial.println("PIR Sensor Test Started...");
+  pinMode(SENSOR_PIN, INPUT);
 }
 
 void loop() {
-  int motion = digitalRead(PIR_PIN);
+  int motion = digitalRead(SENSOR_PIN);
 
   if (motion == HIGH) {
     Serial.println("Motion detected!");
